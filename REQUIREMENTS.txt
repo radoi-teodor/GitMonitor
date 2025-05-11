@@ -1,0 +1,3 @@
+GitPython
+dotenv
+requests
