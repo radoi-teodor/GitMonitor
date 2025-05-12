@@ -20,7 +20,7 @@ REPO_BRANCH = os.getenv("REPO_BRANCH", "main")
 
 REPO_NAME = unquote(os.path.splitext(os.path.basename(urlparse(REPO_URL).path))[0])
 REPO_DIR = f"./repos/{REPO_NAME}"
-TABLE_NAME = REPO_NAME
+TABLE_NAME = REPO_NAME+REPO_BRANCH
 
 # utils
 def generate_ultra_strong_password(length=64):
