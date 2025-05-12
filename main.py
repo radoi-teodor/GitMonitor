@@ -90,7 +90,7 @@ def init_db():
 
 def get_last_scan_date(conn, fresh_clone=False):
     if fresh_clone:
-        return datetime.now() - timedelta(days=30)
+        return datetime.now() - timedelta(days=10)
     c = conn.cursor()
     c.execute(f'SELECT scan_date FROM "{TABLE_NAME}" ORDER BY id DESC LIMIT 1')
     row = c.fetchone()
