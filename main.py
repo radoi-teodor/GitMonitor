@@ -9,6 +9,7 @@ from email.message import EmailMessage
 import secrets
 import string
 import smtplib
+from urllib.parse import unquote
 
 load_dotenv()
 
@@ -17,7 +18,7 @@ DB_FILE = os.getenv("DB_FILE")
 PERSONAL_TOKEN = os.getenv("PERSONAL_TOKEN")
 REPO_BRANCH = os.getenv("REPO_BRANCH", "main")
 
-REPO_NAME = os.path.splitext(os.path.basename(urlparse(REPO_URL).path))[0]
+REPO_NAME = unquote(os.path.splitext(os.path.basename(urlparse(REPO_URL).path))[0])
 REPO_DIR = f"./repos/{REPO_NAME}"
 TABLE_NAME = REPO_NAME
 
