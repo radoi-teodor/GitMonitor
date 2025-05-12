@@ -170,12 +170,17 @@ def main():
     last_date = get_last_scan_date(conn, fresh_clone=fresh_clone)
     
     commit_message = scan_commits(last_date)
+
+    if(commit_message==None):
+        print("No changes")
+        return
+
     prompt = build_prompt(commit_message)
 
     if(prompt != False):
         print(f"PROMPT: {prompt}")
         result = send_prompt(prompt)
-        send_email(os.getenv("TO_EMAIL"), f"{REPO_NAME} code update", result)
+        send_email(os.getenv("TO_EMAIL"), f"{REPO_NAME} (branch: {REPO_BRANCH}) code update", result)
 
     add_scan_date(conn, datetime.now())
     conn.close()
