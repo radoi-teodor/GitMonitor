@@ -18,6 +18,9 @@ DB_FILE = os.getenv("DB_FILE")
 PERSONAL_TOKEN = os.getenv("PERSONAL_TOKEN")
 REPO_BRANCH = os.getenv("REPO_BRANCH", "main")
 
+BASE_LLM_API = os.getenv("BASE_LLM_API")
+PROMPT_LLM_API_ENDPOINT = os.getenv("PROMPT_LLM_API_ENDPOINT")
+
 REPO_NAME = unquote(os.path.splitext(os.path.basename(urlparse(REPO_URL).path))[0])
 REPO_DIR = f"./repos/{REPO_NAME}"
 TABLE_NAME = REPO_NAME+REPO_BRANCH
@@ -64,6 +67,7 @@ def send_email(to_email, subject, body):
     msg["From"] = from_email
     msg["To"] = to_email
     msg.set_content(body)
+    msg.add_alternative(body, subtype='html')
 
     # Send the email
     try:
@@ -143,13 +147,13 @@ def send_prompt(prompt):
     if not api_key:
         raise ValueError("GROQ_API_KEY is not defined in .env")
 
-    url = "https://api.groq.com/openai/v1/chat/completions"
+    url = BASE_LLM_API + PROMPT_LLM_API_ENDPOINT
     headers = {
         "Authorization": f"Bearer {api_key}",
         "Content-Type": "application/json"
     }
     data = {
-        "model": "llama3-8b-8192",
+        "model": "llama3.2-cybersec:latest",
         "messages": [
             {"role": "user", "content": prompt}
         ]
