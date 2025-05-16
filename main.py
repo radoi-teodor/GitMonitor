@@ -181,7 +181,7 @@ def main():
 
     prompt = build_prompt(commit_message)
     # pastram doar caracterele ASCII
-    prompt = prompt.join(c for c in text if ord(c) < 128)
+    prompt = ''.join(c for c in prompt if ord(c) < 128)
     if(prompt != False):
         print(f"PROMPT: {prompt}")
         result = send_prompt(prompt)
