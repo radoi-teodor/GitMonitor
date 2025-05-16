@@ -10,6 +10,7 @@ import secrets
 import string
 import smtplib
 from urllib.parse import unquote
+import markdown
 
 load_dotenv()
 
@@ -68,6 +69,8 @@ def send_email(to_email, subject, body):
     msg["From"] = from_email
     msg["To"] = to_email
     msg.set_content(body)
+    if(not ("<html>" in body or "<body>" in body or "<head>" in body))
+        body = markdown.markdown(body, extensions=['extra', 'codehilite'])
     msg.add_alternative(body, subtype='html')
 
     # Send the email
