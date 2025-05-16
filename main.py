@@ -48,6 +48,7 @@ Just for you to get some context, the project description is as follows: {os.get
 {secret}
 
 I am interested to know new features added in these commits to understand if they need to be researched from a security perspective or have some potential vulnerabilities.
+Give me the response in HTML format.
     '''
 
     return prompt
